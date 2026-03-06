@@ -5,6 +5,11 @@ import plotly.graph_objects as go
 import time
 import requests
 
+# ─── CONFIG: Update your GitHub raw resume link here ──────────────────────────
+# Upload your resume PDF to GitHub, then paste the raw URL below
+GITHUB_RESUME_URL = "https://raw.githubusercontent.com/akash0123-pride/akash0123-pride/main/Akash_Pathak_Resume.pdf"
+GITHUB_RESUME_VIEW = "https://github.com/akash0123-pride/akash0123-pride/blob/main/Akash_Pathak_Resume.pdf"
+
 # ─── Page Config ───────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="Akash Pathak | AI/ML Engineer",
@@ -206,6 +211,28 @@ html, body, [class*="css"] {
 #MainMenu, footer, header { visibility: hidden; }
 .block-container { padding-top: 2rem !important; }
 
+/* Expander styling */
+[data-testid="stExpander"] {
+    background: rgba(255,255,255,0.02) !important;
+    border: 1px solid rgba(120,120,255,0.2) !important;
+    border-radius: 12px !important;
+    margin-bottom: 10px !important;
+}
+[data-testid="stExpander"]:hover {
+    border-color: rgba(120,120,255,0.45) !important;
+}
+[data-testid="stExpander"] summary {
+    font-family: 'Syne', sans-serif !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    color: #e2e2f0 !important;
+    padding: 14px 18px !important;
+}
+[data-testid="stExpanderDetails"] {
+    border-top: 1px solid rgba(120,120,255,0.15) !important;
+    padding: 16px 18px !important;
+}
+
 /* Spinner */
 .stSpinner > div { border-top-color: #7b7bff !important; }
 
@@ -287,7 +314,7 @@ if page == "🏠 Home":
         </p>
         """, unsafe_allow_html=True)
 
-        st.markdown("""
+        st.markdown(f"""
         <div style='display:flex; gap:12px; flex-wrap:wrap; margin-top:20px;'>
             <a href='https://www.linkedin.com/in/akash-pathak-44a082212' target='_blank'
                style='background:rgba(120,120,255,0.15); border:1px solid rgba(120,120,255,0.35);
@@ -297,10 +324,14 @@ if page == "🏠 Home":
                style='background:rgba(120,120,255,0.15); border:1px solid rgba(120,120,255,0.35);
                border-radius:8px; padding:10px 20px; color:#a78bfa; text-decoration:none;
                font-family:Space Mono,monospace; font-size:12px;'>🐙 GitHub</a>
-            <a href='https://drive.google.com/file/d/1zfMTKiAvqE5uA0tvJwtWZOinsdrkwSAw/view' target='_blank'
+            <a href='{GITHUB_RESUME_VIEW}' target='_blank'
                style='background:linear-gradient(135deg,#7b7bff,#a78bfa); border-radius:8px;
                padding:10px 20px; color:white; text-decoration:none;
-               font-family:Space Mono,monospace; font-size:12px;'>📄 Resume</a>
+               font-family:Space Mono,monospace; font-size:12px;'>📄 View Resume</a>
+            <a href='{GITHUB_RESUME_URL}' download
+               style='background:rgba(74,222,128,0.15); border:1px solid rgba(74,222,128,0.35);
+               border-radius:8px; padding:10px 20px; color:#4ade80; text-decoration:none;
+               font-family:Space Mono,monospace; font-size:12px;'>⬇️ Download</a>
         </div>
         """, unsafe_allow_html=True)
 
@@ -422,72 +453,10 @@ elif page == "🎓 Education":
 
 # ─── Experience ────────────────────────────────────────────────────────────────
 elif page == "💼 Experience":
-    st.markdown("<div class='section-title'>💼 Work Experience</div>", unsafe_allow_html=True)
+    st.markdown("<div class='section-title'>💼 Work Experience & Internships</div>", unsafe_allow_html=True)
 
-    experiences = [
-        {
-            "role": "AI/ML Engineer",
-            "company": "Tata Consultancy Services (TCS)",
-            "period": "May 2025 – Present",
-            "location": "Indore",
-            "color": "#7b7bff",
-            "points": [
-                "Designed end-to-end ML workflows including preprocessing, feature engineering, model training, deployment, and monitoring.",
-                "Built scalable TensorFlow models improving classification accuracy and enabling automated decision workflows.",
-                "Developed intelligent automation systems reducing manual intervention through ML-driven decision engines.",
-                "Containerized ML services using Docker and implemented CI/CD pipelines for AWS deployments.",
-                "Monitored production models for data drift, performance degradation, and reliability."
-            ],
-            "tags": ["TensorFlow", "Docker", "AWS", "CI/CD", "MLOps", "Model Monitoring"]
-        },
-        {
-            "role": "Machine Learning Intern",
-            "company": "IBM SkillsBuild (Virtual)",
-            "period": "Sep 2022 – Nov 2022",
-            "location": "Remote",
-            "color": "#38bdf8",
-            "points": [
-                "Built supervised ML models including Random Forest for structured data classification.",
-                "Performed preprocessing, feature engineering, cross-validation, and performance optimization."
-            ],
-            "tags": ["Random Forest", "Scikit-learn", "Feature Engineering", "Cross-Validation"]
-        },
-        {
-            "role": "Data Science Intern",
-            "company": "Delhi Metro Rail Corporation Limited (DMRC)",
-            "period": "Jul 2022 – Sep 2022",
-            "location": "Delhi",
-            "color": "#a78bfa",
-            "points": [
-                "Performed data cleaning, missing value handling, and outlier detection for analytics pipelines.",
-                "Developed a Streamlit-based application for structured data collection and visualization."
-            ],
-            "tags": ["Python", "Pandas", "Streamlit", "Data Cleaning", "Analytics"]
-        },
-    ]
-
-    for exp in experiences:
-        bullet_html = "".join([f"<li style='margin-bottom:8px; color:#aaaacc;'>{p}</li>" for p in exp['points']])
-        tag_html = "".join([f"<span class='tag'>{t}</span>" for t in exp['tags']])
-        st.markdown(f"""
-        <div class='card'>
-            <div style='display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; margin-bottom:12px;'>
-                <div>
-                    <div style='font-size:1.2rem; font-weight:700; color:#e2e2f0;'>{exp['role']}</div>
-                    <div style='color:{exp['color']}; font-family:Space Mono,monospace; font-size:0.85rem; margin-top:4px;'>{exp['company']}</div>
-                </div>
-                <div style='text-align:right;'>
-                    <span class='tag'>{exp['period']}</span><br>
-                    <span style='font-size:0.8rem; color:#555577;'>📍 {exp['location']}</span>
-                </div>
-            </div>
-            <ul style='padding-left:20px; margin:12px 0;'>{bullet_html}</ul>
-            <div style='margin-top:14px;'>{tag_html}</div>
-        </div>
-        """, unsafe_allow_html=True)
-
-    # Timeline chart
-    st.markdown("<div class='sub-heading' style='margin-top:8px;'>CAREER TIMELINE</div>", unsafe_allow_html=True)
+    # Career Timeline chart
+    st.markdown("<div class='sub-heading'>CAREER TIMELINE</div>", unsafe_allow_html=True)
     timeline_data = pd.DataFrame([
         dict(Task="DMRC – Data Science Intern", Start="2022-07-01", Finish="2022-09-30", Resource="Internship"),
         dict(Task="IBM SkillsBuild – ML Intern", Start="2022-09-01", Finish="2022-11-30", Resource="Internship"),
@@ -508,370 +477,35 @@ elif page == "💼 Experience":
     )
     st.plotly_chart(fig_timeline, use_container_width=True)
 
+    st.markdown("<div class='sub-heading' style='margin:24px 0 16px;'>FULL-TIME ROLES</div>", unsafe_allow_html=True)
 
-# ─── Projects ──────────────────────────────────────────────────────────────────
-elif page == "🚀 Projects":
-    st.markdown("<div class='section-title'>🚀 Projects</div>", unsafe_allow_html=True)
-
-    projects = [
-        {
-            "name": "Enterprise Document Intelligence System (RAG)",
-            "icon": "🧠",
-            "desc": "Built a Retrieval-Augmented Generation system using LangChain and vector similarity search for automated knowledge retrieval from enterprise documents.",
-            "tags": ["LangChain", "RAG", "Vector DB", "LLM", "Python"],
-            "highlight": True
-        },
-        {
-            "name": "Lung Disease Detection",
-            "icon": "🫁",
-            "desc": "Developed a ResNet-based TensorFlow model for classifying lung diseases from chest X-ray images with high accuracy and performance optimization techniques.",
-            "tags": ["TensorFlow", "ResNet", "Deep Learning", "Image Classification"],
-            "highlight": False
-        },
-        {
-            "name": "Indian Crime Dashboard",
-            "icon": "📊",
-            "desc": "Built an interactive analytics dashboard using Python, Pandas, and Streamlit to visualize crime trends across India, with EDA and actionable insights.",
-            "tags": ["Streamlit", "Pandas", "Plotly", "EDA", "Data Visualization"],
-            "highlight": False
-        },
-        {
-            "name": "Smart Streetlight AI System",
-            "icon": "💡",
-            "desc": "Computer vision-based monitoring system using Python and ML for automated anomaly detection and real-time analytics on streetlight infrastructure.",
-            "tags": ["OpenCV", "Computer Vision", "Python", "Anomaly Detection"],
-            "highlight": False
-        },
-        {
-            "name": "Driver Drowsiness Detection",
-            "icon": "🚗",
-            "desc": "Real-time system using OpenCV and ML to detect driver drowsiness and trigger alerts, improving road safety.",
-            "tags": ["OpenCV", "ML", "Python", "Real-Time"],
-            "highlight": False
-        },
-        {
-            "name": "Mental Health Tracker",
-            "icon": "💚",
-            "desc": "Application that analyzes user responses to track and provide insights about mental wellness patterns using ML.",
-            "tags": ["Python", "ML", "Streamlit", "NLP"],
-            "highlight": False
-        },
-    ]
-
-    col_a, col_b = st.columns(2)
-    for i, proj in enumerate(projects):
-        col = col_a if i % 2 == 0 else col_b
-        tag_html = "".join([f"<span class='tag'>{t}</span>" for t in proj['tags']])
-        border = "rgba(120,120,255,0.4)" if proj['highlight'] else "rgba(120,120,255,0.15)"
-        bg = "rgba(120,120,255,0.06)" if proj['highlight'] else "rgba(255,255,255,0.02)"
-        badge = "<span style='background:#7b7bff; color:white; border-radius:4px; padding:2px 8px; font-size:0.65rem; font-family:Space Mono,monospace; margin-left:8px;'>FEATURED</span>" if proj['highlight'] else ""
-        with col:
-            st.markdown(f"""
-            <div style='background:{bg}; border:1px solid {border}; border-radius:14px; padding:22px 26px; margin-bottom:16px;'>
-                <div style='font-size:1.1rem; font-weight:700; color:#e2e2f0; margin-bottom:8px;'>
-                    {proj['icon']} {proj['name']}{badge}
-                </div>
-                <p style='color:#8888aa; font-size:0.88rem; line-height:1.7; margin-bottom:14px;'>{proj['desc']}</p>
-                <div>{tag_html}</div>
-            </div>
-            """, unsafe_allow_html=True)
-
-
-# ─── Skills ────────────────────────────────────────────────────────────────────
-elif page == "📊 Skills":
-    st.markdown("<div class='section-title'>📊 Skills & Proficiency</div>", unsafe_allow_html=True)
-
-    col1, col2 = st.columns([3, 2])
-
-    with col1:
-        skills = {
-            "Python": 90,
-            "SQL": 88,
-            "TensorFlow / Keras": 85,
-            "Scikit-learn": 85,
-            "LangChain / LangGraph": 82,
-            "PyTorch": 78,
-            "Docker": 78,
-            "Tableau": 80,
-            "AWS": 75,
-            "MLOps (Learning)": 65,
-        }
-        df_skills = pd.DataFrame(list(skills.items()), columns=["Skill", "Level"])
-        df_skills = df_skills.sort_values("Level", ascending=True)
-
-        fig_bar = px.bar(
-            df_skills, x="Level", y="Skill", orientation='h',
-            color="Level", color_continuous_scale=[[0, "#38bdf8"], [0.5, "#a78bfa"], [1, "#7b7bff"]],
-            range_color=[60, 95], text="Level"
-        )
-        fig_bar.update_traces(texttemplate='%{text}%', textposition='outside', marker_line_width=0)
-        fig_bar.update_layout(
-            paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
-            font=dict(family='Space Mono, monospace', color='#aaaacc', size=12),
-            xaxis=dict(range=[0, 105], gridcolor='rgba(120,120,255,0.1)', color='#aaaacc', showticklabels=False),
-            yaxis=dict(gridcolor='rgba(0,0,0,0)', color='#e2e2f0'),
-            coloraxis_showscale=False,
-            height=400, margin=dict(l=20, r=60, t=10, b=20)
-        )
-        st.plotly_chart(fig_bar, use_container_width=True)
-
-    with col2:
-        skill_categories = {
-            "Programming": ["Python", "SQL", "OOP", "DSA"],
-            "ML / DL": ["Scikit-learn", "TensorFlow", "Keras", "PyTorch"],
-            "Generative AI": ["LangChain", "LangGraph", "RAG", "Prompt Eng", "Hugging Face", "OpenAI APIs"],
-            "ML Engineering": ["ML Pipelines", "Model Deployment", "Drift Detection", "Model Monitoring"],
-            "DevOps / Cloud": ["Docker", "AWS", "CI/CD", "GitHub"],
-            "Data & ETL": ["Preprocessing", "Outlier Detection", "ETL Pipelines", "Tableau"],
-        }
-        for cat, items in skill_categories.items():
-            tag_html = "".join([f"<span class='tag'>{t}</span>" for t in items])
-            st.markdown(f"""
-            <div style='margin-bottom:16px;'>
-                <div style='font-family:Space Mono,monospace; font-size:0.7rem; color:#7b7bff;
-                     text-transform:uppercase; letter-spacing:2px; margin-bottom:8px;'>{cat}</div>
-                <div>{tag_html}</div>
-            </div>
-            """, unsafe_allow_html=True)
-
-
-# ─── Certifications ────────────────────────────────────────────────────────────
-elif page == "📜 Certifications":
-    st.markdown("<div class='section-title'>📜 Certifications</div>", unsafe_allow_html=True)
-
-    certs = [
-        {"name": "Machine Learning with Python", "issuer": "FreeCodeCamp", "icon": "🎓", "color": "#7b7bff"},
-        {"name": "Applied Data Science with Python", "issuer": "IBM SkillsBuild", "icon": "🔵", "color": "#38bdf8"},
-        {"name": "Python for Data Science and Machine Learning", "issuer": "Udemy", "icon": "🟣", "color": "#a78bfa"},
-        {"name": "Data Science A-Z", "issuer": "Udemy", "icon": "📊", "color": "#f472b6"},
-        {"name": "Data Analysis Using Python", "issuer": "IBM", "icon": "🔬", "color": "#34d399"},
-    ]
-
-    col1, col2 = st.columns(2)
-    for i, cert in enumerate(certs):
-        col = col1 if i % 2 == 0 else col2
-        with col:
-            st.markdown(f"""
-            <div class='card' style='border-left:3px solid {cert['color']};'>
-                <div style='font-size:1.5rem; margin-bottom:8px;'>{cert['icon']}</div>
-                <div style='font-weight:700; color:#e2e2f0; font-size:1rem;'>{cert['name']}</div>
-                <div style='font-family:Space Mono,monospace; font-size:0.8rem; color:{cert['color']}; margin-top:6px;'>
-                    {cert['issuer']}
-                </div>
-                <div style='margin-top:10px;'>
-                    <span style='background:rgba(74,222,128,0.1); border:1px solid rgba(74,222,128,0.3);
-                         color:#4ade80; border-radius:20px; padding:3px 12px;
-                         font-family:Space Mono,monospace; font-size:11px;'>✓ Certified</span>
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
-
-
-# ─── AI Chatbot ────────────────────────────────────────────────────────────────
-elif page == "🤖 AI Chatbot":
-    st.markdown("<div class='section-title'>🤖 Ask Akash's AI Assistant</div>", unsafe_allow_html=True)
-    st.markdown("""
-    <p style='color:#8888aa; font-size:0.9rem; margin-bottom:24px;'>
-    This AI assistant knows everything about Akash's background, skills, and experience.
-    Ask anything — <em>powered by a language model loaded from GitHub</em>.
-    </p>
-    """, unsafe_allow_html=True)
-
-    # System prompt with Akash's full context
-    SYSTEM_PROMPT = """You are Akash Pathak's personal AI assistant embedded in his portfolio website.
-You have full knowledge of his background and should answer questions about him confidently and professionally.
-
-AKASH'S PROFILE:
-- Full Name: Akash Pathak
-- Role: AI/ML Engineer at Tata Consultancy Services (TCS), Indore (May 2025 – Present)
-- Education: B.Tech Computer Science Engineering (Data Science), Oriental Institute of Science & Technology, Bhopal, 2020–2024, CGPA 8.32
-- Email: akash.pathak0123@gmail.com | Phone: +91 7024426415
-- LinkedIn: https://www.linkedin.com/in/akash-pathak-44a082212
-- GitHub: https://github.com/akash0123-pride
-- Location: Originally from Chhatapur, India
-
-WORK EXPERIENCE:
-1. TCS – AI/ML Engineer (May 2025–Present): End-to-end ML workflows, TensorFlow models, intelligent automation, Docker, CI/CD, AWS, model monitoring and drift detection.
-2. IBM SkillsBuild – ML Intern (Sep–Nov 2022): Random Forest models, feature engineering, cross-validation.
-3. DMRC – Data Science Intern (Jul–Sep 2022): Data cleaning, outlier detection, Streamlit analytics app.
-
-PROJECTS:
-- Enterprise Document Intelligence (RAG): LangChain, vector search, automated knowledge retrieval
-- Lung Disease Detection: ResNet + TensorFlow for X-ray classification
-- Indian Crime Dashboard: Streamlit + Plotly analytics dashboard
-- Smart Streetlight AI: Computer vision anomaly detection
-- Driver Drowsiness Detection: OpenCV real-time alerting system
-- Mental Health Tracker: ML-based wellness insights app
-
-SKILLS: Python, SQL, TensorFlow, PyTorch, Keras, Scikit-learn, LangChain, LangGraph, RAG, Hugging Face, OpenAI APIs, Docker, AWS, CI/CD, MLOps (learning), Tableau, Prompt Engineering
-
-CERTIFICATIONS: ML with Python (FreeCodeCamp), Applied Data Science with Python (IBM), Python for DS & ML (Udemy)
-
-PERSONALITY: Professional, passionate about AI/ML, eager to solve real-world problems, open to new opportunities.
-
-Answer concisely and helpfully. If asked about something unrelated to Akash, politely redirect to his professional profile. Always be friendly and professional."""
-
-    # Initialize chat history
-    if "chat_history" not in st.session_state:
-        st.session_state.chat_history = []
-
-    # Display conversation
-    chat_container = st.container()
-    with chat_container:
-        if not st.session_state.chat_history:
-            st.markdown("""
-            <div class='chat-message-bot'>
-                👋 Hi! I'm Akash's AI assistant. Ask me anything about his experience, skills, projects, or how to get in touch!
-            </div>
-            """, unsafe_allow_html=True)
-        for msg in st.session_state.chat_history:
-            if msg["role"] == "user":
-                st.markdown(f"<div class='chat-message-user'>🧑 {msg['content']}</div>", unsafe_allow_html=True)
-            else:
-                st.markdown(f"<div class='chat-message-bot'>🤖 {msg['content']}</div>", unsafe_allow_html=True)
-
-    # Quick questions
-    st.markdown("<div style='margin:16px 0 8px; font-family:Space Mono,monospace; font-size:0.7rem; color:#555577; text-transform:uppercase; letter-spacing:2px;'>QUICK QUESTIONS</div>", unsafe_allow_html=True)
-    quick_cols = st.columns(3)
-    quick_questions = [
-        "What does Akash do at TCS?",
-        "What are his top skills?",
-        "Tell me about his RAG project",
-        "What's his educational background?",
-        "Is he open to new opportunities?",
-        "How can I contact Akash?",
-    ]
-    for i, q in enumerate(quick_questions):
-        with quick_cols[i % 3]:
-            if st.button(q, key=f"quick_{i}"):
-                st.session_state.pending_question = q
-                st.rerun()
-
-    # Handle pending quick question
-    if "pending_question" in st.session_state:
-        user_input = st.session_state.pending_question
-        del st.session_state.pending_question
-    else:
-        user_input = None
-
-    # Chat input
-    with st.form("chat_form", clear_on_submit=True):
-        col_input, col_btn = st.columns([5, 1])
-        with col_input:
-            text_input = st.text_input("", placeholder="Ask about Akash's experience, skills, projects...", label_visibility="collapsed")
-        with col_btn:
-            submitted = st.form_submit_button("Send")
-
-    if submitted and text_input:
-        user_input = text_input
-
-    if user_input:
-        st.session_state.chat_history.append({"role": "user", "content": user_input})
-
-        # Build messages for API
-        messages = [{"role": m["role"], "content": m["content"]} for m in st.session_state.chat_history]
-
-        with st.spinner("Thinking..."):
-            try:
-                response = requests.post(
-                    "https://api.anthropic.com/v1/messages",
-                    headers={"Content-Type": "application/json"},
-                    json={
-                        "model": "claude-haiku-4-5-20251001",
-                        "max_tokens": 600,
-                        "system": SYSTEM_PROMPT,
-                        "messages": messages
-                    },
-                    timeout=30
-                )
-                data = response.json()
-                if "content" in data and data["content"]:
-                    reply = data["content"][0]["text"]
-                else:
-                    reply = "Sorry, I couldn't get a response. Please try again."
-            except Exception as e:
-                reply = f"⚠️ Connection error. Please check your API key or try again later."
-
-        st.session_state.chat_history.append({"role": "assistant", "content": reply})
-        st.rerun()
-
-    if st.session_state.chat_history:
-        if st.button("🗑️ Clear Chat"):
-            st.session_state.chat_history = []
-            st.rerun()
-
-    # API key notice
-    st.markdown("""
-    <div style='margin-top:24px; padding:14px 18px; background:rgba(251,191,36,0.07);
-         border:1px solid rgba(251,191,36,0.25); border-radius:10px;
-         font-family:Space Mono,monospace; font-size:0.75rem; color:#fbbf24;'>
-        ⚙️ <strong>Setup:</strong> Add your Anthropic API key in Streamlit secrets as <code>ANTHROPIC_API_KEY</code>
-        or set <code>st.secrets["ANTHROPIC_API_KEY"]</code> in your deployment settings.
-    </div>
-    """, unsafe_allow_html=True)
-
-
-# ─── Contact ───────────────────────────────────────────────────────────────────
-elif page == "📞 Contact":
-    st.markdown("<div class='section-title'>📞 Contact</div>", unsafe_allow_html=True)
-
-    col1, col2 = st.columns([1, 1])
-    with col1:
+    # TCS
+    with st.expander("🟣  AI/ML Engineer — Tata Consultancy Services (TCS)  |  May 2025 – Present  📍 Indore", expanded=True):
         st.markdown("""
-        <div class='card'>
-            <div style='font-family:Space Mono,monospace; font-size:0.7rem; color:#7b7bff;
-                 text-transform:uppercase; letter-spacing:2px; margin-bottom:20px;'>GET IN TOUCH</div>
-            <div style='margin-bottom:16px;'>
-                <span style='color:#555577; font-size:0.8rem; font-family:Space Mono,monospace;'>EMAIL</span><br>
-                <a href='mailto:akash.pathak0123@gmail.com' style='color:#e2e2f0; text-decoration:none; font-size:1rem;'>
-                    akash.pathak0123@gmail.com
-                </a>
-            </div>
-            <div style='margin-bottom:16px;'>
-                <span style='color:#555577; font-size:0.8rem; font-family:Space Mono,monospace;'>PHONE</span><br>
-                <span style='color:#e2e2f0; font-size:1rem;'>+91 7024426415</span>
-            </div>
-            <div style='margin-bottom:16px;'>
-                <span style='color:#555577; font-size:0.8rem; font-family:Space Mono,monospace;'>LOCATION</span><br>
-                <span style='color:#e2e2f0; font-size:1rem;'>📍 Indore / Chhatapur, India</span>
-            </div>
-            <div style='margin-top:24px; display:flex; gap:10px; flex-wrap:wrap;'>
-                <a href='https://www.linkedin.com/in/akash-pathak-44a082212' target='_blank'
-                   style='background:rgba(120,120,255,0.15); border:1px solid rgba(120,120,255,0.35);
-                   border-radius:8px; padding:10px 18px; color:#a78bfa; text-decoration:none;
-                   font-family:Space Mono,monospace; font-size:12px;'>🔗 LinkedIn</a>
-                <a href='https://github.com/akash0123-pride' target='_blank'
-                   style='background:rgba(120,120,255,0.15); border:1px solid rgba(120,120,255,0.35);
-                   border-radius:8px; padding:10px 18px; color:#a78bfa; text-decoration:none;
-                   font-family:Space Mono,monospace; font-size:12px;'>🐙 GitHub</a>
-            </div>
+        <div style='padding:8px 4px;'>
+        <div style='display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;'>
+            <span class='tag'>TensorFlow</span><span class='tag'>Docker</span><span class='tag'>AWS</span>
+            <span class='tag'>CI/CD</span><span class='tag'>MLOps</span><span class='tag'>Model Monitoring</span>
+            <span class='tag'>Python</span><span class='tag'>Drift Detection</span>
+        </div>
+        <div style='color:#aaaacc; line-height:1.9; font-size:0.95rem;'>
+        <b style='color:#7b7bff;'>Key Responsibilities:</b><br>
+        ▸ Designed end-to-end ML workflows including preprocessing, feature engineering, model training, deployment, and monitoring.<br>
+        ▸ Built scalable TensorFlow models improving classification accuracy and enabling automated decision workflows.<br>
+        ▸ Developed intelligent automation systems reducing manual intervention through ML-driven decision engines.<br>
+        ▸ Containerized ML services using Docker and implemented CI/CD pipelines for AWS deployments.<br>
+        ▸ Monitored production models for data drift, performance degradation, and reliability.<br><br>
+        <b style='color:#7b7bff;'>Impact:</b><br>
+        ▸ Reduced manual intervention significantly through automated ML decision engines.<br>
+        ▸ Improved model reliability via proactive drift detection and monitoring pipelines.
+        </div>
         </div>
         """, unsafe_allow_html=True)
 
-    with col2:
+    st.markdown("<div class='sub-heading' style='margin:24px 0 16px;'>INTERNSHIPS</div>", unsafe_allow_html=True)
+
+    # IBM
+    with st.expander("🔵  Machine Learning Intern — IBM SkillsBuild  |  Sep 2022 – Nov 2022  📍 Remote (Virtual)"):
         st.markdown("""
-        <div class='card'>
-            <div style='font-family:Space Mono,monospace; font-size:0.7rem; color:#7b7bff;
-                 text-transform:uppercase; letter-spacing:2px; margin-bottom:20px;'>AVAILABILITY</div>
-            <div style='display:flex; align-items:center; gap:10px; margin-bottom:16px;'>
-                <span style='color:#4ade80; font-size:1.2rem;'>●</span>
-                <span style='color:#e2e2f0;'>Open to new opportunities</span>
-            </div>
-            <p style='color:#8888aa; font-size:0.9rem; line-height:1.7;'>
-            Currently working at TCS as an AI/ML Engineer and exploring opportunities in
-            <strong style='color:#a78bfa;'>Generative AI</strong>,
-            <strong style='color:#38bdf8;'>MLOps</strong>, and
-            <strong style='color:#7b7bff;'>AI Product Engineering</strong>.
-            </p>
-            <div style='margin-top:20px;'>
-                <div class='sub-heading' style='margin-bottom:12px;'>INTERESTED IN</div>
-                <div>
-                    <span class='tag'>GenAI Applications</span>
-                    <span class='tag'>MLOps</span>
-                    <span class='tag'>LLM Engineering</span>
-                    <span class='tag'>AI Products</span>
-                    <span class='tag'>Remote Work</span>
-                </div>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+        <div style='padding:8px 4px;'>
+        <div style='display:flex; gap:8px; flex-wrap:
