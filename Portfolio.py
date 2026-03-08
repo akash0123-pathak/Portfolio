@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 import requests
 
 # ─── UPDATE YOUR GITHUB RESUME LINKS HERE ─────────────────────────────────────
-GITHUB_RESUME_VIEW = "https://github.com/akash0123-pathak/akash0123-pathak/blob/main/Akash_Pathak_Resume.pdf"
+GITHUB_RESUME_VIEW = "https://drive.google.com/file/d/1Aq_yLZhdb9nkGAHU8-pnyemgZuGd9EAg/view?usp=drivesdk"
 GITHUB_RESUME_URL  = "https://raw.githubusercontent.com/akash0123-pathak/akash0123-pathak/main/Akash_Pathak_Resume.pdf"
 
 # ─── Page Config ───────────────────────────────────────────────────────────────
